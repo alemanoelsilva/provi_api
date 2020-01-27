@@ -1,0 +1,55 @@
+{
+  "name": "provi-api",
+  "version": "1.0.0",
+  "description": "API for Provi Challenge",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test:coverage": "NODE_ENV=test jest --silent --runInBand --coverage --forceExit ./test/**/*.spec.js",
+    "test:unit": "NODE_ENV=test jest --coverage --runInBand --forceExit ./test/unit/*.spec.js",
+    "test:integration": "NODE_ENV=test jest --runInBand --coverage --forceExit ./test/integration/*.spec.js",
+    "test": "npm run lint && npm run test:coverage",
+    "lint": "eslint *.js .",
+    "lint:fix": "eslint --fix *.js ."
+  },
+  "author": "Alexandre Manoel da Silva",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "bunyan": "^1.8.12",
+    "bunyan-rotating-file-stream": "^1.6.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "joi": "^14.3.0",
+    "moment": "^2.23.0",
+    "uuid": "^3.3.2",
+    "mongodb": "^3.2.4"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.0",
+    "jest": "^22.4.3",
+    "jest-plugin-context": "^2.9.0",
+    "supertest": "^3.1.0"
+  },
+  "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/",
+    "setupTestFrameworkScriptFile": "./test/integration/setup.js",
+    "collectCoverageFrom": [
+      "api/**/*.js",
+      "!**/node_modules/**",
+      "!**/config/**"
+    ],
+    "coverageReporters": [
+      "text",
+      "text-summary",
+      "html"
+    ],
+    "setupFiles": [
+      "jest-plugin-context/setup"
+    ]
+  }
+}

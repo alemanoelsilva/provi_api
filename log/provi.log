@@ -1,0 +1,4 @@
+{"name":"provi-api","hostname":"ales-pro","pid":10490,"level":30,"msg":"Database connected on dbName provi","time":"2020-01-27T02:58:22.358Z","v":0}
+{"name":"provi-api","hostname":"ales-pro","pid":10490,"level":30,"msg":"Application is running on port 3000","time":"2020-01-27T02:58:22.552Z","v":0}
+{"name":"provi-api","hostname":"ales-pro","pid":10545,"level":30,"msg":"Database connected on dbName provi","time":"2020-01-27T02:58:38.519Z","v":0}
+{"name":"provi-api","hostname":"ales-pro","pid":10545,"level":30,"msg":"Application is running on port 3000","time":"2020-01-27T02:58:38.773Z","v":0}
