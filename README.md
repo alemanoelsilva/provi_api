@@ -41,6 +41,8 @@ npm start
 
 ### Running on the local unit
 
+You will need to create a mongo database locally or change the string connection on the environment variables.
+
 ```shell
 npm run test:unit
 ```
