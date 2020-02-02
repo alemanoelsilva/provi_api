@@ -1,0 +1,257 @@
+{
+	"info": {
+		"_postman_id": "8d4a4dad-34d1-4cbc-b4fe-211783e7223b",
+		"name": "Provi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create basic user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"email@email.com\",\n\t\"password\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Make login (get the user token)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"email@email.com\",\n\t\"password\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/signin",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register CPF",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"0f86a4c4-563c-54c2-8999-c3ae3ccc9c45\",\n\t\"cpf\": \"77470927093\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/cpf",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"cpf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register full name",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"0f86a4c4-563c-54c2-8999-c3ae3ccc9c45\",\n\t\"fullname\": \"My full name here\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/full-name",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"full-name"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register birth date",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"0f86a4c4-563c-54c2-8999-c3ae3ccc9c45\",\n\t\"birthday\": \"1991-10-22\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/birth-date",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"birth-date"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register phone number",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"0f86a4c4-563c-54c2-8999-c3ae3ccc9c45\",\n\t\"phonenumber\": \"11912341234\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/phone-number",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"phone-number"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Address",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"0f86a4c4-563c-54c2-8999-c3ae3ccc9c45\",\n\t\"cep\": \"05461010\", \n\t\"street\": \"Praça Panamericana\", \n\t\"number\": 217, \n\t\"complement\": \"Alto de Pinheiros\", \n\t\"city\": \"São Paulo\", \n\t\"state\":\"SP\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/address",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"address"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Amount requested",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"0f86a4c4-563c-54c2-8999-c3ae3ccc9c45\",\n\t\"amount\": 100000\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/amount-requested",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"amount-requested"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

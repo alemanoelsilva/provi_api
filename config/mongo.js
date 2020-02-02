@@ -1,13 +1,8 @@
-const { MongoClient } = require('mongodb');
-
-const logger = require('./logger');
-
 let state = {};
 
-const MongoDB = () => ({
+const MongoDB = (MongoClient, logger) => ({
   connect: async ({ database, dbName }) => {
     try {
-      console.log({ database, dbName })
       const client = await MongoClient.connect(database, {
         promiseLibrary: Promise,
         useNewUrlParser: true,

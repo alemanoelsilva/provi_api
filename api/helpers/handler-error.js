@@ -1,7 +1,8 @@
 exports.onError = response => ({
-  statusCode = 400,
-  message = 'Erro interno',
+  statusCode = 500,
+  message = 'Internal Server Error',
+  success = false,
 }) => response
   .status(statusCode)
-  .json({ message })
+  .json({ success, message })
   .end();

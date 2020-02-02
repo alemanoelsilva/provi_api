@@ -1,5 +1,7 @@
-const { connect } = require('./config/mongo')();
+const { MongoClient } = require('mongodb');
+
 const logger = require('./config/logger');
+const { connect } = require('./config/mongo')(MongoClient, logger);
 
 const { app: { port } } = require('./config/environment');
 const { db } = require('./config/environment');

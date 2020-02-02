@@ -26,9 +26,11 @@ module.exports = {
     userCollection: process.env.USER_COLLECTION_NAME,
     cpfCollection: process.env.CPF_COLLECTION_NAME,
     fullnameCollection: process.env.FULL_NAME_COLLECTION_NAME,
-    birthdayCollection: process.env.BIRTHDAY_COLLECTION_NAME,
+    birthdateCollection: process.env.BIRTH_DATE_COLLECTION_NAME,
     phonenumberCollection: process.env.PHONE_NUMBER_COLLECTION_NAME,
     addressCollection: process.env.ADDRESS_COLLECTION_NAME,
-    amountrequestedCollection: process.env.AMOUNT_REQUESTED_COLLECTION_NAME,
+    amountRequestedCollection: process.env.AMOUNT_REQUESTED_COLLECTION_NAME,
+    orderEndpointCollection: process.env.ORDER_ENDPOINT_COLLECTION_NAME,
   },
+  sequenceEndpoints: process.env.DEFAULT_SEQUENCE_ENDPOINTS.split(','),
 };

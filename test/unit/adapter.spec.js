@@ -1,34 +1,28 @@
 const {
-  login,
-  create,
-  find,
+  signUp,
 } = require('../../api/users/adapter');
 
 describe('User Adapter Unit tests', () => {
+  const DEFAULT_SEQUENCE = ['first', 'second', 'third'];
+
   const mocks = {
-    query: '',
-    params: '',
-    body: '',
+    payload: {
+      email: 'email',
+      password: 'password',
+    },
     repository: {
-      find: jest.fn(() => ({ id: 'id' })),
-      save: jest.fn(),
-      updateLastLoginTime: jest.fn(),
-      findByID: jest.fn(),
+      user: {
+        find: jest.fn(() => ([])),
+        save: jest.fn(),
+      },
+      orderEndpoint: {
+        find: jest.fn(() => ([{ id: 'id', event: 1, order: DEFAULT_SEQUENCE }])),
+        save: jest.fn(),
+      },
     },
-    formatters: {
-      payload: jest.fn(data => data),
-      response: jest.fn(data => data),
-    },
-    taskRunner: {
-      addTasks: jest.fn(),
-      exec: jest.fn(),
-    },
-    validators: {
-      hasUser: jest.fn(),
-      duplicatedEmail: jest.fn(),
-      isValidToken: jest.fn(),
-      isValidSession: jest.fn(),
-    },
+    getToken: jest.fn(data => data),
+    getNextEndpoint: jest.fn(() => 1),
+    sequenceEndpoints: DEFAULT_SEQUENCE,
     logger: {
       info: jest.fn(),
       error: jest.fn(),
@@ -39,43 +33,75 @@ describe('User Adapter Unit tests', () => {
 
   beforeEach(() => jest.clearAllMocks());
 
-  describe('Run the login function', () => {
-    test('Should call the onSuccess Function', async () => {
-      await login(mocks);
+  describe('Execute the signUp function', () => {
+    test('Should call the onSuccess Function when there are leastways one orderEndpoints', async () => {
+      await signUp(mocks);
+
+      expect(mocks.logger.info).toHaveBeenCalledTimes(1);
+      expect(mocks.repository.user.find).toHaveBeenCalledTimes(1);
+      expect(mocks.repository.user.save).toHaveBeenCalledTimes(1);
+      expect(mocks.repository.orderEndpoint.find).toHaveBeenCalledTimes(1);
+      expect(mocks.repository.orderEndpoint.save).toHaveBeenCalledTimes(0);
+      expect(mocks.getToken).toHaveBeenCalledTimes(1);
+      expect(mocks.getNextEndpoint).toHaveBeenCalledTimes(1);
+      expect(mocks.onSuccess).toHaveBeenCalledTimes(1);
+      expect(mocks.onError).toHaveBeenCalledTimes(0);
+    });
+
+    test('Should call the onSuccess Function when there is no one orderEndpoints', async () => {
+      const orderEndpoint = {
+        find: jest.fn(() => ([])),
+        save: jest.fn(),
+      };
+
+      await signUp({
+        ...mocks,
+        repository: {
+          ...mocks.repository,
+          orderEndpoint,
+        },
+      });
 
       expect(mocks.logger.info).toHaveBeenCalledTimes(2);
-      expect(mocks.repository.find).toHaveBeenCalledTimes(1);
-      expect(mocks.taskRunner.addTasks).toHaveBeenCalledTimes(1);
-      expect(mocks.taskRunner.exec).toHaveBeenCalledTimes(1);
-      expect(mocks.repository.updateLastLoginTime).toHaveBeenCalledTimes(1);
+      expect(mocks.repository.user.find).toHaveBeenCalledTimes(1);
+      expect(mocks.repository.user.save).toHaveBeenCalledTimes(1);
+      expect(orderEndpoint.find).toHaveBeenCalledTimes(1);
+      expect(orderEndpoint.save).toHaveBeenCalledTimes(1);
+      expect(mocks.getToken).toHaveBeenCalledTimes(1);
+      expect(mocks.getNextEndpoint).toHaveBeenCalledTimes(1);
       expect(mocks.onSuccess).toHaveBeenCalledTimes(1);
       expect(mocks.onError).toHaveBeenCalledTimes(0);
     });
-  });
 
-  describe('Run the create function', () => {
-    test('Should call the onSuccess Function', async () => {
-      await create(mocks);
+    test('Should call the onError Function when there is an user already registered', async () => {
+      const user = {
+        find: jest.fn(() => ([{ id: 'id' }])),
+        save: jest.fn(),
+      };
+
+      try {
+        await signUp({
+          ...mocks,
+          repository: {
+            ...mocks.repository,
+            user,
+          },
+        });
+      } catch (error) {
+        expect(error.message).toBeEqual('User already exist');
+        expect(error.statusCode).toBeEqual(400);
+      }
 
       expect(mocks.logger.info).toHaveBeenCalledTimes(1);
-      expect(mocks.taskRunner.addTasks).toHaveBeenCalledTimes(1);
-      expect(mocks.taskRunner.exec).toHaveBeenCalledTimes(1);
-      expect(mocks.repository.save).toHaveBeenCalledTimes(1);
-      expect(mocks.onSuccess).toHaveBeenCalledTimes(1);
-      expect(mocks.onError).toHaveBeenCalledTimes(0);
+      expect(user.find).toHaveBeenCalledTimes(1);
+      expect(user.save).toHaveBeenCalledTimes(0);
+      expect(mocks.repository.orderEndpoint.find).toHaveBeenCalledTimes(1);
+      expect(mocks.repository.orderEndpoint.save).toHaveBeenCalledTimes(0);
+      expect(mocks.getToken).toHaveBeenCalledTimes(0);
+      expect(mocks.getNextEndpoint).toHaveBeenCalledTimes(0);
+      expect(mocks.onSuccess).toHaveBeenCalledTimes(0);
+      expect(mocks.onError).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('Run the search function', () => {
-    test('Should call the onSuccess Function', async () => {
-      await find(mocks);
-
-      expect(mocks.logger.info).toHaveBeenCalledTimes(1);
-      expect(mocks.taskRunner.addTasks).toHaveBeenCalledTimes(1);
-      expect(mocks.taskRunner.exec).toHaveBeenCalledTimes(1);
-      expect(mocks.repository.findByID).toHaveBeenCalledTimes(1);
-      expect(mocks.onSuccess).toHaveBeenCalledTimes(1);
-      expect(mocks.onError).toHaveBeenCalledTimes(0);
-    });
-  });
 });
